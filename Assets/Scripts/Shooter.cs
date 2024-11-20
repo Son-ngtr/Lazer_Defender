@@ -21,6 +21,13 @@ public class Shooter : MonoBehaviour
 
     Coroutine firingCoroutine;
 
+    AudioPlayer audioPlayer;
+
+    private void Awake()
+    {
+        audioPlayer = FindAnyObjectByType<AudioPlayer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +77,9 @@ public class Shooter : MonoBehaviour
                                                       baseFiringRate + firingRateVariance);
 
             timeToNextProjectile = Mathf.Clamp(timeToNextProjectile, minimumFiringRate, float.MaxValue);
+
+/*            audioPlayer.PlayShootingClip();
+*/            audioPlayer.GetInstance().PlayShootingClip();
 
             yield return new WaitForSeconds(timeToNextProjectile);
         }
